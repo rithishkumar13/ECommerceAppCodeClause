@@ -1,9 +1,9 @@
 import java.util.*;
 class Product {
-    private int product_id;
-    private String product_name;
-    private double price;
-    private String description;
+    private final int product_id;
+    private final String product_name;
+    private final double price;
+    private final String description;
 
     public Product(int product_id, String product_name, double price, String description) {
         this.product_id = product_id;
@@ -28,14 +28,14 @@ class Product {
         return description;
     }
 
-    //@Override
+    @Override
     public String toString() {
         return "Product{id=" + product_id + ", name='" + product_name + "', price=" + price + ", description='" + description + "'}";
     }
 }
 
 class CartItem {
-    private Product product;
+    private final Product product;
     private int quantity;
 
     public CartItem(Product product, int quantity) {
@@ -63,14 +63,14 @@ class CartItem {
         return product.getPrice() * quantity;
     }
 
-    //@Override
+    @Override
     public String toString() {
         return "CartItem{" + "product=" + product.getName() + ", quantity=" + quantity + '}';
     }
 }
 
 class Cart {
-    private List<CartItem> items;
+    private final List<CartItem> items;
 
     public Cart() {
         this.items = new ArrayList<>();
@@ -114,7 +114,7 @@ class Cart {
     }
 }
 class Shop {
-    private List<Product> products;
+    private final List<Product> products;
 
     public Shop() {
         products = new ArrayList<>();
@@ -142,7 +142,7 @@ class Shop {
 }
 
 class Checkout {
-    private Cart cart;
+    private final Cart  cart;
 
     public Checkout(Cart cart) {
         this.cart = cart;
@@ -161,8 +161,7 @@ class Checkout {
         System.out.println("Purchase completed successfully!");
     }
 }
-
-public class ECOmmerceApp{
+public class ECommerceApp{
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         Shop shop = new Shop();
@@ -171,20 +170,18 @@ public class ECOmmerceApp{
         shop.addProduct(new Product(2, "IPhone 15 pro", 110000.00, "Smartphone with great camera"));
         shop.addProduct(new Product(3, "JBL ear Buds", 10000.00, "Wireless headphones"));
         shop.addProduct(new Product(4, "Moto watch 100", 20000.00, "Smart Watch"));
-
         shop.listProducts();
-
         Cart cart = new Cart();
         while (true) {
             System.out.println("\nSelect an option:");
-            System.out.println("Press List to List products");
-            System.out.println("Press add to Add product to cart");
+            System.out.println("1.Press List to List products");
+            System.out.println("2.Press add to Add product to cart");
             System.out.println("3.Press remove to Remove product from cart");
             System.out.println("4.Press view to View cart");
             System.out.println("5.Press checkout to Checkout");
             System.out.println("6.Press exit to Exit");
 
-            String choice = sc.nextLine();
+            String choice = sc.next();
 
             switch (choice) {
                 case "list":
@@ -193,10 +190,8 @@ public class ECOmmerceApp{
                 case "add":
                     System.out.println("Enter the product ID to add to the cart:");
                     int productId = sc.nextInt();
-
                     System.out.println("Enter the quantity:");
                     int quantity = sc.nextInt();
-
                     Product product = shop.getProductById(productId);
 
                     if (product != null) {
@@ -227,6 +222,7 @@ public class ECOmmerceApp{
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         }
     }
